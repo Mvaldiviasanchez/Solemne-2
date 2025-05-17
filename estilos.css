@@ -1,0 +1,152 @@
+:root {
+    --bg-color: #e6f1f3;
+    --card-bg: #ffffff;
+    --primary: #13414C;
+    --text-color: #333;
+    --shadow: rgba(0, 0, 0, 0.1);
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
+  header {
+    background-color: var(--primary);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2em;
+    animation: fadeIn 1s ease-out;
+  }
+  
+  header p {
+    margin-top: 10px;
+    font-size: 1.1em;
+    animation: fadeIn 1.5s ease-out;
+  }
+  
+  .grid-empresas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 40px 20px;
+  }
+  
+  .empresa-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.8s forwards;
+  }
+  
+  .empresa-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+  
+  .empresa-logo {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    animation: fadeIn 1.2s ease-in;
+  }
+  
+  .empresa-nombre {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--primary);
+    text-align: center;
+  }
+  
+  .cursos-lista {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .cursos-lista li {
+    padding: 8px 0;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .cursos-lista li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 0.9em;
+  }
+  
+  footer {
+    background-color: var(--primary);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9em;
+    margin-top: 40px;
+  }
+  
+  .empresa-header {
+    padding: 30px 20px;
+    text-align: center;
+    background-color: var(--primary);
+    color: white;
+  }
+  
+  .empresa-header h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .video-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .cursos-detalle {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .cursos-detalle h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
