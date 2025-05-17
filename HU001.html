@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Usuario</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { margin: 5px; padding: 5px; }
+    #usuarios { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>Registro de Usuario</h2>
+
+  <form id="formulario">
+    <input type="text" id="rut" placeholder="RUT" required><br>
+    <input type="text" id="nombre" placeholder="Nombre" required><br>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <button type="button" onclick="confirmarRegistro()">Registrar Usuario</button>
+  </form>
+
+  <h3>Búsqueda por RUT</h3>
+  <input type="text" id="buscarRut" placeholder="Buscar RUT">
+  <button onclick="buscarUsuario()">Buscar</button>
+
+  <div id="usuarios"></div>
+
+  <script>
+    let usuarios = [];
+
+    function confirmarRegistro() {
+      if (confirm("¿Deseas registrar este usuario?")) {
+        registrarUsuario();
+      }
+    }
+
+    function registrarUsuario() {
+      const rut = document.getElementById('rut').value.trim().toLowerCase();
+      const nombre = document.getElementById('nombre').value.trim().toLowerCase();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+
+      if (!rut || !nombre || !email) {
+        alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      const existe = usuarios.find(u => u.rut === rut);
+      if (existe) {
+        alert("El RUT ya está registrado.");
+        return;
+      }
+
+      usuarios.push({ rut, nombre, email });
+      mostrarUsuarios();
+      document.getElementById('formulario').reset();
+    }
+
+    function mostrarUsuarios() {
+      const contenedor = document.getElementById('usuarios');
+      contenedor.innerHTML = '<h3>Usuarios Registrados</h3>';
+      usuarios.forEach((u, i) => {
+        contenedor.innerHTML += `
+          <div>
+            <b>${u.rut}</b> - ${u.nombre} - ${u.email}
+            <button onclick="editarUsuario(${i})">Modificar</button>
+            <button onclick="eliminarUsuario(${i})">Eliminar</button>
+          </div>
+        `;
+      });
+    }
+
+    function buscarUsuario() {
+      const rutBuscar = document.getElementById('buscarRut').value.trim().toLowerCase();
+      const usuario = usuarios.find(u => u.rut === rutBuscar);
+      if (usuario) {
+        alert(`Usuario encontrado:\nNombre: ${usuario.nombre}\nEmail: ${usuario.email}`);
+      } else {
+        alert("Usuario no encontrado.");
+      }
+    }
+
+    function editarUsuario(index) {
+      const nuevoNombre = prompt("Nuevo nombre:", usuarios[index].nombre);
+      const nuevoEmail = prompt("Nuevo email:", usuarios[index].email);
+      if (nuevoNombre && nuevoEmail) {
+        usuarios[index].nombre = nuevoNombre.toLowerCase();
+        usuarios[index].email = nuevoEmail.toLowerCase();
+        mostrarUsuarios();
+      }
+    }
+
+    function eliminarUsuario(index) {
+      if (confirm("¿Seguro que deseas eliminar este usuario?")) {
+        usuarios.splice(index, 1);
+        mostrarUsuarios();
+      }
+    }
+  </script>
+
+</body>
+</html>
