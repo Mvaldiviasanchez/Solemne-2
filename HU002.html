@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Acceso a Recursos de Formación</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .curso { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
+    .categoria { font-weight: bold; margin-top: 20px; }
+    button { margin: 5px; }
+  </style>
+</head>
+<body>
+
+  <h2>Cursos de Formación</h2>
+
+  <div id="cursosContainer"></div>
+
+  <script>
+    const cursos = [
+      {
+        titulo: "HTML Básico",
+        categoria: "Desarrollo Web",
+        recursos: ["Video: Introducción a HTML", "Documento: Etiquetas Básicas", "Prueba: HTML Nivel 1"]
+      },
+      {
+        titulo: "JavaScript Intermedio",
+        categoria: "Desarrollo Web",
+        recursos: ["Video: Funciones y Eventos", "Documento: Manipulación del DOM", "Prueba: JavaScript Nivel 2"]
+      },
+      {
+        titulo: "Comunicación Efectiva",
+        categoria: "Habilidades Blandas",
+        recursos: ["Video: Técnicas de Comunicación", "Documento: Comunicación Asertiva", "Prueba: Comunicación Nivel 1"]
+      }
+    ];
+
+    const progreso = {};
+
+    function renderCursos() {
+      const contenedor = document.getElementById("cursosContainer");
+      contenedor.innerHTML = "";
+
+      const categorias = [...new Set(cursos.map(c => c.categoria))];
+
+      categorias.forEach(cat => {
+        contenedor.innerHTML += `<div class="categoria">${cat}</div>`;
+        cursos.filter(c => c.categoria === cat).forEach((curso, index) => {
+          const inscrito = progreso[curso.titulo];
+          contenedor.innerHTML += `
+            <div class="curso">
+              <h4>${curso.titulo}</h4>
+              <p><strong>Recursos:</strong></p>
+              <ul>
+                ${curso.recursos.map(r => `<li>${r}</li>`).join("")}
+              </ul>
+              ${inscrito ? `
+                <p>Progreso: ${progreso[curso.titulo]}%</p>
+                <button onclick="actualizarProgreso('${curso.titulo}')">Actualizar Progreso</button>
+              ` : `
+                <button onclick="inscribirse('${curso.titulo}')">Inscribirse</button>
+              `}
+            </div>
+          `;
+        });
+      });
+    }
+
+    function inscribirse(titulo) {
+      if (confirm(`¿Deseas inscribirte en el curso "${titulo}"?`)) {
+        progreso[titulo] = 0;
+        renderCursos();
+        alert("Inscripción exitosa. Puedes comenzar a aprender.");
+      }
+    }
+
+    function actualizarProgreso(titulo) {
+      const nuevoProgreso = prompt("Ingresa el nuevo progreso (0-100):", progreso[titulo]);
+      const valor = parseInt(nuevoProgreso);
+      if (!isNaN(valor) && valor >= 0 && valor <= 100) {
+        progreso[titulo] = valor;
+        renderCursos();
+      } else {
+        alert("Progreso inválido. Ingresa un número entre 0 y 100.");
+      }
+    }
+
+    renderCursos();
+  </script>
+
+</body>
+</html>
