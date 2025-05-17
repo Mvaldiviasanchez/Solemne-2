@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestión de Publicaciones</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <style>
+    .admin-card {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .admin-card input,
+    .admin-card textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .admin-card button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .admin-card button:hover {
+      background-color: #0f333c;
+    }
+
+    .publicacion-item {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .registro-cambios {
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+
+    .registro-cambios li {
+      margin-bottom: 10px;
+    }
+
+    .fecha-expira {
+      font-size: 0.9em;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Panel de Gestión de Contenido</h1>
+    <p>Administrador: aprobar, modificar o eliminar publicaciones</p>
+  </header>
+
+  <div class="admin-card">
+    <h2>Agregar nueva publicación</h2>
+    <input type="text" id="titulo" placeholder="Título de la publicación" required />
+    <textarea id="descripcion" placeholder="Descripción detallada" rows="4" required></textarea>
+    <input type="date" id="fechaExpiracion" required />
+    <button onclick="agregarPublicacion()">Agregar</button>
+  </div>
+
+  <div class="admin-card">
+    <h2>Publicaciones activas</h2>
+    <div id="listaPublicaciones"></div>
+  </div>
+
+  <div class="admin-card registro-cambios">
+    <h2>Registro de Cambios</h2>
+    <ul id="historialCambios"></ul>
+  </div>
+
+  <footer>
+    &copy; 2025 Plataforma Administrativa. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    let publicaciones = [];
+    let historial = [];
+
+    function agregarPublicacion() {
+      const titulo = document.getElementById("titulo").value.trim();
+      const descripcion = document.getElementById("descripcion").value.trim();
+      const fecha = document.getElementById("fechaExpiracion").value;
+
+      if (!titulo || !descripcion || !fecha) {
+        alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      publicaciones.push({
+        titulo,
+        descripcion,
+        fechaExpira: fecha,
+        creada: new Date().toLocaleString()
+      });
+
+      historial.push(`Se agregó: "${titulo}" (${new Date().toLocaleString()})`);
+      limpiarFormulario();
+      renderizarPublicaciones();
+      renderizarHistorial();
+    }
+
+    function limpiarFormulario() {
+      document.getElementById("titulo").value = "";
+      document.getElementById("descripcion").value = "";
+      document.getElementById("fechaExpiracion").value = "";
+    }
+
+    function renderizarPublicaciones() {
+      const contenedor = document.getElementById("listaPublicaciones");
+      contenedor.innerHTML = "";
+      const hoy = new Date();
+
+      publicaciones = publicaciones.filter(pub => new Date(pub.fechaExpira) >= hoy);
+
+      publicaciones.forEach((pub, index) => {
+        contenedor.innerHTML += `
+          <div class="publicacion-item">
+            <strong>${pub.titulo}</strong>
+            <p>${pub.descripcion}</p>
+            <p class="fecha-expira">Expira: ${pub.fechaExpira}</p>
+            <button onclick="modificar(${index})">Modificar</button>
+            <button onclick="eliminar(${index})">Eliminar</button>
+          </div>
+        `;
+      });
+    }
+
+    function modificar(index) {
+      const nuevoTitulo = prompt("Nuevo título:", publicaciones[index].titulo);
+      const nuevaDescripcion = prompt("Nueva descripción:", publicaciones[index].descripcion);
+      const nuevaFecha = prompt("Nueva fecha de expiración (AAAA-MM-DD):", publicaciones[index].fechaExpira);
+
+      if (nuevoTitulo && nuevaDescripcion && nuevaFecha) {
+        historial.push(`Modificada: "${publicaciones[index].titulo}" → "${nuevoTitulo}" (${new Date().toLocaleString()})`);
+        publicaciones[index].titulo = nuevoTitulo;
+        publicaciones[index].descripcion = nuevaDescripcion;
+        publicaciones[index].fechaExpira = nuevaFecha;
+        renderizarPublicaciones();
+        renderizarHistorial();
+      }
+    }
+
+    function eliminar(index) {
+      if (confirm("¿Seguro que deseas eliminar esta publicación?")) {
+        historial.push(`Eliminada: "${publicaciones[index].titulo}" (${new Date().toLocaleString()})`);
+        publicaciones.splice(index, 1);
+        renderizarPublicaciones();
+        renderizarHistorial();
+      }
+    }
+
+    function renderizarHistorial() {
+      const lista = document.getElementById("historialCambios");
+      lista.innerHTML = "";
+      historial.forEach(cambio => {
+        lista.innerHTML += `<li>${cambio}</li>`;
+      });
+    }
+  </script>
+
+</body>
+</html>
