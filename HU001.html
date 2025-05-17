@@ -1,30 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Registro de Usuario</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Usuarios</title>
+  <link rel="stylesheet" href="estilos.css" />
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    input, button { margin: 5px; padding: 5px; }
-    #usuarios { margin-top: 20px; }
+    .formulario-card {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .formulario-card input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+
+    .formulario-card button {
+      padding: 10px 20px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .formulario-card button:hover {
+      background-color: #0e3039;
+    }
+
+    #usuarios {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .usuario-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .usuario-item:last-child {
+      border-bottom: none;
+    }
+
+    .usuario-item button {
+      margin-left: 10px;
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .usuario-item button:hover {
+      background-color: #aaa;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Registro de Usuario</h2>
+  <header>
+    <h1>Registro de Estudiantes</h1>
+    <p>Evalúa y administra usuarios registrados en el sistema</p>
+  </header>
 
-  <form id="formulario">
-    <input type="text" id="rut" placeholder="RUT" required><br>
-    <input type="text" id="nombre" placeholder="Nombre" required><br>
-    <input type="email" id="email" placeholder="Email" required><br>
-    <button type="button" onclick="confirmarRegistro()">Registrar Usuario</button>
-  </form>
+  <div class="formulario-card">
+    <h2>Registrar Nuevo Usuario</h2>
+    <form id="formulario">
+      <input type="text" id="rut" placeholder="RUT (sin puntos ni guión)" required />
+      <input type="text" id="nombre" placeholder="Nombre completo" required />
+      <input type="email" id="email" placeholder="Correo electrónico" required />
+      <button type="button" onclick="confirmarRegistro()">Registrar Usuario</button>
+    </form>
+  </div>
 
-  <h3>Búsqueda por RUT</h3>
-  <input type="text" id="buscarRut" placeholder="Buscar RUT">
-  <button onclick="buscarUsuario()">Buscar</button>
+  <div class="formulario-card">
+    <h2>Buscar Usuario por RUT</h2>
+    <input type="text" id="buscarRut" placeholder="Ingrese RUT a buscar" />
+    <button onclick="buscarUsuario()">Buscar</button>
+  </div>
 
   <div id="usuarios"></div>
+
+  <footer>
+    &copy; 2025 Plataforma de Evaluación. Todos los derechos reservados.
+  </footer>
 
   <script>
     let usuarios = [];
@@ -58,13 +129,15 @@
 
     function mostrarUsuarios() {
       const contenedor = document.getElementById('usuarios');
-      contenedor.innerHTML = '<h3>Usuarios Registrados</h3>';
+      contenedor.innerHTML = '<h2>Usuarios Registrados</h2>';
       usuarios.forEach((u, i) => {
         contenedor.innerHTML += `
-          <div>
-            <b>${u.rut}</b> - ${u.nombre} - ${u.email}
-            <button onclick="editarUsuario(${i})">Modificar</button>
-            <button onclick="eliminarUsuario(${i})">Eliminar</button>
+          <div class="usuario-item">
+            <div><strong>${u.rut}</strong> - ${u.nombre} - ${u.email}</div>
+            <div>
+              <button onclick="editarUsuario(${i})">Modificar</button>
+              <button onclick="eliminarUsuario(${i})">Eliminar</button>
+            </div>
           </div>
         `;
       });
