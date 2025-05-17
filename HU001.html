@@ -100,6 +100,11 @@
   <script>
     let usuarios = [];
 
+    function validarRut(rut) {
+      // Valida que sea 7 u 8 números seguidos opcionalmente de un dígito verificador (número o k)
+      return /^[0-9]{7,8}[0-9kK]?$/.test(rut);
+    }
+
     function confirmarRegistro() {
       if (confirm("¿Deseas registrar este usuario?")) {
         registrarUsuario();
@@ -113,6 +118,11 @@
 
       if (!rut || !nombre || !email) {
         alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      if (!validarRut(rut)) {
+        alert("El RUT ingresado es inválido. Debe contener 7 u 8 números seguidos de un dígito verificador (número o K).");
         return;
       }
 
