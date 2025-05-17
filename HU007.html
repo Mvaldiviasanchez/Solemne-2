@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notificaciones Personalizadas</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <style>
+    .notificacion-card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+      max-width: 800px;
+      animation: fadeIn 1s ease;
+    }
+
+    .notificacion-card h3 {
+      color: var(--primary);
+    }
+
+    .config-section {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+    }
+
+    .config-section label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .interval-label {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Notificaciones Personalizadas</h1>
+    <p>Recibe alertas de nuevas oportunidades según tus preferencias</p>
+  </header>
+
+  <div class="config-section">
+    <h2>Configurar Preferencias</h2>
+    <label><input type="checkbox" id="alertaEmpleos" checked> Empleos</label>
+    <label><input type="checkbox" id="alertaCursos" checked> Cursos</label>
+    <label><input type="checkbox" id="alertaEventos"> Eventos</label>
+
+    <div class="interval-label">Frecuencia de notificación:</div>
+    <select id="intervaloNotificaciones">
+      <option value="5000">Cada 5 segundos (demo)</option>
+      <option value="15000">Cada 15 segundos</option>
+      <option value="60000">Cada minuto</option>
+    </select>
+  </div>
+
+  <div id="zonaNotificaciones"></div>
+
+  <footer>
+    &copy; 2025 Plataforma de Empleabilidad. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const zonaNotificaciones = document.getElementById('zonaNotificaciones');
+    const tipos = {
+      empleos: [
+        "Nueva vacante en Codelco: Asistente de Producción",
+        "Oferta de trabajo: Desarrollador en Python – Remoto"
+      ],
+      cursos: [
+        "Curso disponible: Desarrollo con IA - Nivel Intermedio",
+        "Inscríbete en 'Gestión de Proyectos Digitales'"
+      ],
+      eventos: [
+        "Charla: El Futuro del Trabajo - 30 de mayo",
+        "Webinar Gratuito: Herramientas para tu primer empleo"
+      ]
+    };
+
+    function mostrarNotificacion(tipo, mensaje) {
+      const card = document.createElement('div');
+      card.className = 'notificacion-card';
+      card.innerHTML = `<h3>${tipo}</h3><p>${mensaje}</p><p class="tiempo">Recibido: ${new Date().toLocaleTimeString()}</p>`;
+      zonaNotificaciones.prepend(card);
+    }
+
+    function generarNotificacion() {
+      if (document.getElementById('alertaEmpleos').checked) {
+        const mensaje = tipos.empleos[Math.floor(Math.random() * tipos.empleos.length)];
+        mostrarNotificacion('Empleo', mensaje);
+      }
+      if (document.getElementById('alertaCursos').checked) {
+        const mensaje = tipos.cursos[Math.floor(Math.random() * tipos.cursos.length)];
+        mostrarNotificacion('Curso', mensaje);
+      }
+      if (document.getElementById('alertaEventos').checked) {
+        const mensaje = tipos.eventos[Math.floor(Math.random() * tipos.eventos.length)];
+        mostrarNotificacion('Evento', mensaje);
+      }
+    }
+
+    let intervalo = setInterval(generarNotificacion, 5000);
+
+    document.getElementById('intervaloNotificaciones').addEventListener('change', function () {
+      clearInterval(intervalo);
+      intervalo = setInterval(generarNotificacion, parseInt(this.value));
+    });
+  </script>
+
+</body>
+</html>

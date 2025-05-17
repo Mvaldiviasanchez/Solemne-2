@@ -1,92 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Acceso a Recursos de Formación</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .curso { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 8px; }
-    .categoria { font-weight: bold; margin-top: 20px; }
-    button { margin: 5px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recursos de Formación</title>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
 
-  <h2>Cursos de Formación</h2>
+  <header>
+    <h1>Recursos de Formación</h1>
+    <p>Accede a cursos y mejora tus habilidades para el mundo laboral</p>
+  </header>
 
-  <div id="cursosContainer"></div>
+  <div class="grid-empresas">
 
-  <script>
-    const cursos = [
-      {
-        titulo: "HTML Básico",
-        categoria: "Desarrollo Web",
-        recursos: ["Video: Introducción a HTML", "Documento: Etiquetas Básicas", "Prueba: HTML Nivel 1"]
-      },
-      {
-        titulo: "JavaScript Intermedio",
-        categoria: "Desarrollo Web",
-        recursos: ["Video: Funciones y Eventos", "Documento: Manipulación del DOM", "Prueba: JavaScript Nivel 2"]
-      },
-      {
-        titulo: "Comunicación Efectiva",
-        categoria: "Habilidades Blandas",
-        recursos: ["Video: Técnicas de Comunicación", "Documento: Comunicación Asertiva", "Prueba: Comunicación Nivel 1"]
-      }
-    ];
+    <div class="empresa-card">
+      <img src="multimedia/curso_office.jpg" alt="Curso Office" class="empresa-logo" />
+      <div class="empresa-nombre">Curso de Office 365</div>
+      <ul class="cursos-lista">
+        <li><a href="videos/office_intro.mp4" target="_blank">Video: Introducción a Office</a></li>
+        <li><a href="documentos/manual_office.pdf" target="_blank">Documento: Manual PDF</a></li>
+        <li><a href="pruebas/quiz_office.html" target="_blank">Prueba: Evaluación Básica</a></li>
+      </ul>
+      <progress value="60" max="100"></progress>
+      <p>Progreso: 60%</p>
+      <button onclick="alert('Inscrito en Office 365')">Inscribirme</button>
+    </div>
 
-    const progreso = {};
+    <div class="empresa-card">
+      <img src="multimedia/curso_python.jpg" alt="Curso Python" class="empresa-logo" />
+      <div class="empresa-nombre">Curso Python Nivel Medio</div>
+      <ul class="cursos-lista">
+        <li><a href="videos/python_bases.mp4" target="_blank">Video: Fundamentos</a></li>
+        <li><a href="documentos/guia_python.pdf" target="_blank">Guía Interactiva</a></li>
+        <li><a href="pruebas/quiz_python.html" target="_blank">Prueba: Desafíos Lógicos</a></li>
+      </ul>
+      <progress value="30" max="100"></progress>
+      <p>Progreso: 30%</p>
+      <button onclick="alert('Inscrito en Python Medio')">Inscribirme</button>
+    </div>
 
-    function renderCursos() {
-      const contenedor = document.getElementById("cursosContainer");
-      contenedor.innerHTML = "";
+    <div class="empresa-card">
+      <img src="multimedia/curso_html.jpg" alt="Curso HTML" class="empresa-logo" />
+      <div class="empresa-nombre">HTML Medio</div>
+      <ul class="cursos-lista">
+        <li><a href="videos/html_basico.mp4" target="_blank">Video: Estructura HTML</a></li>
+        <li><a href="documentos/html_ejemplos.pdf" target="_blank">Ejemplos PDF</a></li>
+        <li><a href="pruebas/quiz_html.html" target="_blank">Prueba: Validación de Código</a></li>
+      </ul>
+      <progress value="80" max="100"></progress>
+      <p>Progreso: 80%</p>
+      <button onclick="alert('Inscrito en HTML Medio')">Inscribirme</button>
+    </div>
 
-      const categorias = [...new Set(cursos.map(c => c.categoria))];
+  </div>
 
-      categorias.forEach(cat => {
-        contenedor.innerHTML += `<div class="categoria">${cat}</div>`;
-        cursos.filter(c => c.categoria === cat).forEach((curso, index) => {
-          const inscrito = progreso[curso.titulo];
-          contenedor.innerHTML += `
-            <div class="curso">
-              <h4>${curso.titulo}</h4>
-              <p><strong>Recursos:</strong></p>
-              <ul>
-                ${curso.recursos.map(r => `<li>${r}</li>`).join("")}
-              </ul>
-              ${inscrito ? `
-                <p>Progreso: ${progreso[curso.titulo]}%</p>
-                <button onclick="actualizarProgreso('${curso.titulo}')">Actualizar Progreso</button>
-              ` : `
-                <button onclick="inscribirse('${curso.titulo}')">Inscribirse</button>
-              `}
-            </div>
-          `;
-        });
-      });
-    }
-
-    function inscribirse(titulo) {
-      if (confirm(`¿Deseas inscribirte en el curso "${titulo}"?`)) {
-        progreso[titulo] = 0;
-        renderCursos();
-        alert("Inscripción exitosa. Puedes comenzar a aprender.");
-      }
-    }
-
-    function actualizarProgreso(titulo) {
-      const nuevoProgreso = prompt("Ingresa el nuevo progreso (0-100):", progreso[titulo]);
-      const valor = parseInt(nuevoProgreso);
-      if (!isNaN(valor) && valor >= 0 && valor <= 100) {
-        progreso[titulo] = valor;
-        renderCursos();
-      } else {
-        alert("Progreso inválido. Ingresa un número entre 0 y 100.");
-      }
-    }
-
-    renderCursos();
-  </script>
+  <footer>
+    &copy; 2025 Plataforma de Formación. Todos los derechos reservados.
+  </footer>
 
 </body>
 </html>

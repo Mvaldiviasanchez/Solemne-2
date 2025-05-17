@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Informe de Desempeño</title>
+  <link rel="stylesheet" href="estilos.css" />
+  <style>
+    .retro-card {
+      background-color: var(--card-bg);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px var(--shadow);
+      max-width: 800px;
+      animation: fadeIn 1s ease;
+    }
+
+    .estado {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .estado.aceptado {
+      color: green;
+    }
+
+    .estado.rechazado {
+      color: red;
+    }
+
+    .tiempo {
+      font-size: 0.9em;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Informe de Desempeño y Sugerencias</h1>
+    <p>Mejora tus postulaciones con retroalimentación oportuna</p>
+  </header>
+
+  <div class="retro-card">
+    <h2>Postulación: Codelco - Practicante en Procesos</h2>
+    <p class="estado aceptado">✔ Aceptado</p>
+    <p><strong>Retroalimentación:</strong> Excelente manejo de herramientas como Excel y Power Automate. Se recomienda reforzar habilidades blandas mediante cursos de comunicación efectiva.</p>
+    <p class="tiempo">Enviado hace 3 horas</p>
+  </div>
+
+  <div class="retro-card">
+    <h2>Postulación: Iplacex - Analista Junior IA</h2>
+    <p class="estado rechazado">✖ Rechazado</p>
+    <p><strong>Retroalimentación:</strong> Buen potencial técnico, pero faltó mayor claridad en tu CV sobre proyectos relacionados con IA. Sugerimos completar el curso de Desarrollo con IA y subir un portafolio.</p>
+    <p class="tiempo">Enviado hace 14 horas</p>
+  </div>
+
+  <div class="retro-card">
+    <h2>Postulación: UNAB - Asistente Académico</h2>
+    <p class="estado rechazado">✖ Rechazado</p>
+    <p><strong>Retroalimentación:</strong> No se especificó experiencia previa en entornos educativos. Sería útil incluir referencias académicas y tomar el curso “Introducción al Sector Educativo”.</p>
+    <p class="tiempo">Enviado hace 22 horas</p>
+  </div>
+
+  <footer>
+    &copy; 2025 Plataforma de Empleabilidad. Todos los derechos reservados.
+  </footer>
+
+</body>
+</html>
