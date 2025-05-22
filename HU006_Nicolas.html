@@ -40,3 +40,38 @@
       border-radius: 5px;
       cursor: pointer;
     }
+      </style>
+</head>
+<body onload="iniciarMonitoreo()">
+
+  <header>
+    <h1>Panel de Supervisión</h1>
+    <p>Monitoreo en tiempo real de la plataforma - Nicolás Vásquez</p>
+  </header>
+  <section class="metricas">
+    <div class="card">
+      <p>Usuarios activos</p>
+      <h2 id="usuarios">0</h2>
+    </div>
+    <div class="card">
+      <p>Postulaciones</p>
+      <h2 id="postulaciones">0</h2>
+    </div>
+    <div class="card">
+      <p>Visitas</p>
+      <h2 id="visitas">0</h2>
+    </div>
+  </section>
+
+  <button class="exportar-btn" onclick="exportarCSV()">📁 Exportar datos CSV</button>
+
+  <footer>
+    &copy; 2025 Plataforma Laboral. Administración por Nicolás Vásquez.
+  </footer>
+
+  <script>
+    // Simulación de actualización en tiempo real
+    let usuarios = 10;
+    let postulaciones = 5;
+    let visitas = 100;
+
