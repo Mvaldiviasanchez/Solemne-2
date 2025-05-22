@@ -32,3 +32,53 @@
       border-radius: 5px;
       margin-top: 10px;
     }
+      </style>
+</head>
+<body onload="notificarOfertas()">
+
+  <header>
+    <h1>Conexión con Empresas</h1>
+    <p>Encuentra oportunidades laborales según tu perfil</p>
+  </header>
+  <section>
+    <label for="filtro">Filtrar por perfil:</label>
+    <select id="filtro">
+      <option>Todos</option>
+      <option>Desarrollador Web</option>
+      <option>Diseñador UX</option>
+      <option>Administrador</option>
+    </select>
+  </section>
+
+  <section class="empresa-card">
+    <h3>Empresa: TechNova</h3>
+    <p>Puesto: Desarrollador Web Junior</p>
+    <p>Ubicación: Remoto</p>
+    <input type="file" id="cv1" />
+    <button class="postular-btn" onclick="postular('TechNova')">Postularme</button>
+  </section>
+
+  <section class="empresa-card">
+    <h3>Empresa: CreatiUX</h3>
+    <p>Puesto: Diseñador UX</p>
+    <p>Ubicación: Buenos Aires</p>
+    <input type="file" id="cv2" />
+    <button class="postular-btn" onclick="postular('CreatiUX')">Postularme</button>
+  </section>
+  <footer>
+    &copy; 2025 Plataforma Laboral - Nicolás Vásquez
+  </footer>
+
+  <script>
+    function postular(empresa) {
+      alert("Has postulado exitosamente a " + empresa + ". ¡Tu CV ha sido enviado!");
+    }
+
+    function notificarOfertas() {
+      alert("🔔 ¡Hay nuevas ofertas laborales disponibles para ti!");
+    }
+  </script>
+
+</body>
+</html>
+
