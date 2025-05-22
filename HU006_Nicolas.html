@@ -74,4 +74,40 @@
     let usuarios = 10;
     let postulaciones = 5;
     let visitas = 100;
+    
+    function actualizarDatos() {
+      usuarios += Math.floor(Math.random() * 5);
+      postulaciones += Math.floor(Math.random() * 3);
+      visitas += Math.floor(Math.random() * 10);
+
+      document.getElementById("usuarios").innerText = usuarios;
+      document.getElementById("postulaciones").innerText = postulaciones;
+      document.getElementById("visitas").innerText = visitas;
+    }
+
+    function iniciarMonitoreo() {
+      actualizarDatos();
+      setInterval(actualizarDatos, 3000); // Actualiza cada 3 segundos
+    }
+
+    function exportarCSV() {
+      const csvContent =
+        "Métrica,Valor\n" +
+        `Usuarios activos,${usuarios}\n` +
+        `Postulaciones,${postulaciones}\n` +
+        `Visitas,${visitas}\n`;
+
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", "reporte_supervision.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+
+</body>
+</html>
 
