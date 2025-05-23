@@ -2,20 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>HU004 - Seguimiento del progreso</title>
+  <title>HU004 - Progreso del Usuario</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f9f9;
-      margin: 20px;
+      background-color: #f0f4f5;
+      padding: 20px;
     }
 
-    .story {
-      background-color: #ffffff;
+    .container {
+      background: #fff;
       border: 2px solid #13414C;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
     }
 
     h1 {
@@ -23,33 +24,93 @@
       text-align: center;
     }
 
-    .section {
-      margin-bottom: 10px;
+    input, button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .section strong {
-      color: #13414C;
+    button {
+      background-color: #13414C;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
-    ul {
-      margin: 0;
-      padding-left: 20px;
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e6f3f3;
+      border-radius: 5px;
+    }
+
+    .progress-bar {
+      background-color: #d0d0d0;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 20px;
+      background-color: #13414C;
+      width: 0;
+      text-align: center;
+      color: white;
+      transition: width 1s ease-in-out;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Seguimiento del Progreso</h1>
 
-  <h1>HU004 - Seguimiento del progreso en la formación</h1>
-  <div class="story">
-    <div class="section"><strong>Como usuario:</strong> necesito acceso a poder ver el progreso de avance en cuanto a cursos asignados y desarrollados.</div>
-    <div class="section"><strong>Funcionalidad principal:</strong> Visualización de progreso.</div>
-    <div class="section"><strong>Criterios de aceptación:</strong>
-      <ul>
-        <li>El usuario debe encontrarse registrado.</li>
-        <li>El usuario debe tener algún curso inscrito en su perfil.</li>
-      </ul>
+    <input type="email" id="correo" placeholder="Ingresa tu correo registrado">
+
+    <button onclick="verificarCorreo()">Ver progreso</button>
+
+    <div class="result" id="resultado"></div>
+    <div class="progress-bar" id="barraProgreso" style="display: none;">
+      <div class="progress-bar-fill" id="progresoFill">0%</div>
     </div>
   </div>
 
+  <script>
+    // Lista de usuarios con cursos
+    const usuarios = [
+      { correo: "juan@example.com", cursos: ["HTML", "CSS"], progreso: 60 },
+      { correo: "ana@example.com", cursos: ["Python"], progreso: 80 },
+      { correo: "carlos@example.com", cursos: [], progreso: 0 }
+    ];
+
+    function verificarCorreo() {
+      const inputCorreo = document.getElementById('correo').value.trim().toLowerCase();
+      const resultado = document.getElementById('resultado');
+      const barra = document.getElementById('barraProgreso');
+      const fill = document.getElementById('progresoFill');
+
+      const usuario = usuarios.find(u => u.correo.toLowerCase() === inputCorreo);
+
+      if (!usuario) {
+        resultado.textContent = "Correo no registrado.";
+        barra.style.display = "none";
+        return;
+      }
+
+      if (usuario.cursos.length === 0) {
+        resultado.textContent = "Estás registrado, pero no tienes cursos inscritos.";
+        barra.style.display = "none";
+        return;
+      }
+
+      resultado.textContent = `Progreso en tus cursos (${usuario.cursos.join(", ")}):`;
+      fill.style.width = usuario.progreso + "%";
+      fill.textContent = usuario.progreso + "%";
+      barra.style.display = "block";
+    }
+  </script>
 </body>
 </html>
