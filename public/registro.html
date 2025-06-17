@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Formulario de Registro</h1>
+    <p>Completa tus datos para unirte a la plataforma</p>
+  </header>
+
+    <section class="registro-usuarios">
+      <form id="formRegistro" class="formulario">
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="text" name="usuario" placeholder="Nombre de usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <input type="tel" name="telefono" placeholder="Número celular" required>
+        <input type="email" name="email" placeholder="Correo electrónico" required>
+        <button type="submit">Registrarse</button>
+      </form>
+      <p id="mensajeRegistro"></p>
+    </section>
+
+
+  <footer>
+    &copy; 2025 Plataforma de Prácticas
+  </footer>
+
+  <script src="registro.js"></script>
+</body>
+</html>
